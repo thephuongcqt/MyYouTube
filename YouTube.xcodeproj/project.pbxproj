@@ -9,18 +9,14 @@
 /* Begin PBXBuildFile section */
 		BF5C11E01FD5709200C13455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11DF1FD5709200C13455 /* AppDelegate.swift */; };
 		BF5C11E21FD5709200C13455 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11E11FD5709200C13455 /* ViewController.swift */; };
-		BF5C11E51FD5709200C13455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF5C11E31FD5709200C13455 /* Main.storyboard */; };
 		BF5C11E71FD5709200C13455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF5C11E61FD5709200C13455 /* Assets.xcassets */; };
-		BF5C11EA1FD5709200C13455 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF5C11E81FD5709200C13455 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BF5C11DC1FD5709200C13455 /* YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5C11DF1FD5709200C13455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF5C11E11FD5709200C13455 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BF5C11E41FD5709200C13455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF5C11E61FD5709200C13455 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BF5C11E91FD5709200C13455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF5C11EB1FD5709200C13455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,9 +52,7 @@
 			children = (
 				BF5C11DF1FD5709200C13455 /* AppDelegate.swift */,
 				BF5C11E11FD5709200C13455 /* ViewController.swift */,
-				BF5C11E31FD5709200C13455 /* Main.storyboard */,
 				BF5C11E61FD5709200C13455 /* Assets.xcassets */,
-				BF5C11E81FD5709200C13455 /* LaunchScreen.storyboard */,
 				BF5C11EB1FD5709200C13455 /* Info.plist */,
 			);
 			path = YouTube;
@@ -123,9 +117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5C11EA1FD5709200C13455 /* LaunchScreen.storyboard in Resources */,
 				BF5C11E71FD5709200C13455 /* Assets.xcassets in Resources */,
-				BF5C11E51FD5709200C13455 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,25 +134,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		BF5C11E31FD5709200C13455 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BF5C11E41FD5709200C13455 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		BF5C11E81FD5709200C13455 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BF5C11E91FD5709200C13455 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BF5C11EC1FD5709200C13455 /* Debug */ = {
