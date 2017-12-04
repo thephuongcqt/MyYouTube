@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				BF5C11FE1FD581CC00C13455 /* Model */,
-				BF5C11FD1FD581C100C13455 /* ViewController */,
+				BF5C11FD1FD581C100C13455 /* Controller */,
 				BF5C11FC1FD581BA00C13455 /* View */,
 				BF5C11F11FD5801900C13455 /* Utils */,
 				BF5C11DF1FD5709200C13455 /* AppDelegate.swift */,
@@ -93,12 +93,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		BF5C11FD1FD581C100C13455 /* ViewController */ = {
+		BF5C11FD1FD581C100C13455 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				BF5C11E11FD5709200C13455 /* HomeController.swift */,
 			);
-			path = ViewController;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		BF5C11FE1FD581CC00C13455 /* Model */ = {

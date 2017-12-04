@@ -8,6 +8,12 @@
 
 import UIKit
 
+extension UIApplication {
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
+    }
+}
+
 extension UIViewController{
     func setupKeyboardGestureRecognizer(){
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))

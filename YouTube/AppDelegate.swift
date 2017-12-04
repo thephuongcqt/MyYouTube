@@ -12,7 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    lazy var statusBarBackgroundView: UIView = {
+        let view = UIView(frame: UIApplication.shared.statusBarFrame)
+        view.backgroundColor = UIColor(r: 194, g: 31, b: 31)
+        return view
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -22,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let layout = UICollectionViewFlowLayout()
         let rootViewController = HomeController(collectionViewLayout: layout)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        UINavigationBar.appearance().barTintColor = UIColor(r: 230, g: 32, b: 31)
+        application.statusBarStyle = .lightContent
+        
+//        window?.addSubview(statusBarBackgroundView)
+        // Status bar always hidden on ios 11 in landsape mode
+        // Avoid to custom status bar by UIView
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor(r: 194, g: 31, b: 31)
         
         return true
     }

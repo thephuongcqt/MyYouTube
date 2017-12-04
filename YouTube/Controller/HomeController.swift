@@ -9,11 +9,21 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.text = "Home"
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Home"
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.titleView = titleLabel
+        
         collectionView?.backgroundColor = .white
         
         if #available(iOS 11, *){
@@ -35,9 +45,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = view.safeWidth
-        let height = CGFloat(200)
-        
-        let size = CGSize(width: width, height: height)
+        let videoHeight = (width - 16 - 16) * 9 / 16
+        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16)
+        let size = CGSize(width: width, height: videoHeight + otherControlsHeight)
         
         return size
     }
