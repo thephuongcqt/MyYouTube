@@ -28,10 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = HomeController(collectionViewLayout: layout)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         UINavigationBar.appearance().barTintColor = UIColor(r: 230, g: 32, b: 31)
+        // remove separator line
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
         application.statusBarStyle = .lightContent
         
 //        window?.addSubview(statusBarBackgroundView)
-        // Status bar always hidden on ios 11 in landsape mode
+        // On ios 11 status bar always hide in landsape mode
         // Avoid to custom status bar by UIView
         UIApplication.shared.statusBarView?.backgroundColor = UIColor(r: 194, g: 31, b: 31)
         

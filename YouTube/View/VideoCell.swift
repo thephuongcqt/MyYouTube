@@ -8,16 +8,7 @@
 
 import UIKit
 
-class VideoCollectionViewCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+class VideoCell: BaseCell {
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +50,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         return tv
     }()
     
-    private func setupViews(){
+    override func setupViews(){
         backgroundColor = .white
         
         addSubview(thumbnailImageView)
