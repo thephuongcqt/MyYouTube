@@ -8,16 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		BF5C11E01FD5709200C13455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11DF1FD5709200C13455 /* AppDelegate.swift */; };
-		BF5C11E21FD5709200C13455 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11E11FD5709200C13455 /* ViewController.swift */; };
+		BF5C11E21FD5709200C13455 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11E11FD5709200C13455 /* HomeController.swift */; };
 		BF5C11E71FD5709200C13455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF5C11E61FD5709200C13455 /* Assets.xcassets */; };
+		BF5C11F41FD5801900C13455 /* Extensions+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11F21FD5801900C13455 /* Extensions+UIViewController.swift */; };
+		BF5C11F51FD5801900C13455 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11F31FD5801900C13455 /* Extensions.swift */; };
+		BF5C11F71FD5805800C13455 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11F61FD5805800C13455 /* Extensions+UIView.swift */; };
+		BF5C11F91FD5813500C13455 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11F81FD5813500C13455 /* Extensions+String.swift */; };
+		BF5C11FB1FD5816600C13455 /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11FA1FD5816600C13455 /* Extensions+UIImageView.swift */; };
+		BF5C12001FD5828700C13455 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11FF1FD5828700C13455 /* VideoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BF5C11DC1FD5709200C13455 /* YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5C11DF1FD5709200C13455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF5C11E11FD5709200C13455 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF5C11E11FD5709200C13455 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		BF5C11E61FD5709200C13455 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF5C11EB1FD5709200C13455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF5C11F21FD5801900C13455 /* Extensions+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIViewController.swift"; sourceTree = "<group>"; };
+		BF5C11F31FD5801900C13455 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BF5C11F61FD5805800C13455 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
+		BF5C11F81FD5813500C13455 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
+		BF5C11FA1FD5816600C13455 /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
+		BF5C11FF1FD5828700C13455 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,12 +62,50 @@
 		BF5C11DE1FD5709200C13455 /* YouTube */ = {
 			isa = PBXGroup;
 			children = (
+				BF5C11FE1FD581CC00C13455 /* Model */,
+				BF5C11FD1FD581C100C13455 /* ViewController */,
+				BF5C11FC1FD581BA00C13455 /* View */,
+				BF5C11F11FD5801900C13455 /* Utils */,
 				BF5C11DF1FD5709200C13455 /* AppDelegate.swift */,
-				BF5C11E11FD5709200C13455 /* ViewController.swift */,
 				BF5C11E61FD5709200C13455 /* Assets.xcassets */,
 				BF5C11EB1FD5709200C13455 /* Info.plist */,
 			);
 			path = YouTube;
+			sourceTree = "<group>";
+		};
+		BF5C11F11FD5801900C13455 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BF5C11F21FD5801900C13455 /* Extensions+UIViewController.swift */,
+				BF5C11F31FD5801900C13455 /* Extensions.swift */,
+				BF5C11F61FD5805800C13455 /* Extensions+UIView.swift */,
+				BF5C11F81FD5813500C13455 /* Extensions+String.swift */,
+				BF5C11FA1FD5816600C13455 /* Extensions+UIImageView.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		BF5C11FC1FD581BA00C13455 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BF5C11FF1FD5828700C13455 /* VideoCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BF5C11FD1FD581C100C13455 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF5C11E11FD5709200C13455 /* HomeController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BF5C11FE1FD581CC00C13455 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,8 +178,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5C11E21FD5709200C13455 /* ViewController.swift in Sources */,
+				BF5C11E21FD5709200C13455 /* HomeController.swift in Sources */,
 				BF5C11E01FD5709200C13455 /* AppDelegate.swift in Sources */,
+				BF5C11FB1FD5816600C13455 /* Extensions+UIImageView.swift in Sources */,
+				BF5C11F91FD5813500C13455 /* Extensions+String.swift in Sources */,
+				BF5C11F41FD5801900C13455 /* Extensions+UIViewController.swift in Sources */,
+				BF5C11F51FD5801900C13455 /* Extensions.swift in Sources */,
+				BF5C12001FD5828700C13455 /* VideoCollectionViewCell.swift in Sources */,
+				BF5C11F71FD5805800C13455 /* Extensions+UIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
