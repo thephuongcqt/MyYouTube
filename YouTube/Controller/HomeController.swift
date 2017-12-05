@@ -24,35 +24,38 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
-    let videos: [Video] = {
-        var kanyeChannel = Channel()
-        kanyeChannel.name = "KanyeIsTheBestChannel"
-        kanyeChannel.profileImageName = "kanye_profile"
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo.thumbnailImageName = "taylor_swift_blank_space"
-        blankSpaceVideo.channel = kanyeChannel
-        blankSpaceVideo.numberOfViews = 239843093
-        
-        var badBloodVideo = Video()
-        badBloodVideo.title = "Taylor Swift - Bad Blood featuring Kendrick"
-        badBloodVideo.thumbnailImageName = "taylor_swift_bad_blood"
-        badBloodVideo.channel = kanyeChannel
-        badBloodVideo.numberOfViews = 597843543
-        
-        var newVideo = Video()
-        newVideo.title = "Taylor Swift - Bad Blood featuring Kendrick dick head"
-        newVideo.thumbnailImageName = "taylor_swift_bad_blood"
-        newVideo.channel = kanyeChannel
-        newVideo.numberOfViews = 597843543
-        
-        return [blankSpaceVideo, newVideo, badBloodVideo, newVideo]
-    }()
+//    let videos: [Video] = {
+//        var kanyeChannel = Channel()
+//        kanyeChannel.name = "KanyeIsTheBestChannel"
+//        kanyeChannel.profileImageName = "kanye_profile"
+//        var blankSpaceVideo = Video()
+//        blankSpaceVideo.title = "Taylor Swift - Blank Space"
+//        blankSpaceVideo.thumbnailImageName = "taylor_swift_blank_space"
+//        blankSpaceVideo.channel = kanyeChannel
+//        blankSpaceVideo.numberOfViews = 239843093
+//
+//        var badBloodVideo = Video()
+//        badBloodVideo.title = "Taylor Swift - Bad Blood featuring Kendrick"
+//        badBloodVideo.thumbnailImageName = "taylor_swift_bad_blood"
+//        badBloodVideo.channel = kanyeChannel
+//        badBloodVideo.numberOfViews = 597843543
+//
+//        var newVideo = Video()
+//        newVideo.title = "Taylor Swift - Bad Blood featuring Kendrick dick head"
+//        newVideo.thumbnailImageName = "taylor_swift_bad_blood"
+//        newVideo.channel = kanyeChannel
+//        newVideo.numberOfViews = 597843543
+//
+//        return [blankSpaceVideo, newVideo, badBloodVideo, newVideo]
+//    }()
+    var videos: [Video]?
     
     //MARK: UIViewController life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchVideos()
         
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.titleView = titleLabel
@@ -68,6 +71,37 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupMenuBar()
         setupNavBarButtons()
     }
+    
+    //MARK: fetch videos
+    
+    func fetchVideos(){
+        let urlString = "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json"
+        
+        if let url = URL(string: urlString){
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error != nil{
+                    print(error!)
+                    return
+                }
+                do{
+                    self.videos = [Video]()
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                    for dictionary in json as! [[String: Any]]{
+                        let video = Video(withDictionary: dictionary)
+                        self.videos?.append(video)
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
+                } catch let err{
+                    print(err)
+                }
+            }.resume()
+        }
+        
+    }
+    
+    //MARK: Set up Navigation Bar
     
     private func setupNavBarButtons(){
         let searchImage = #imageLiteral(resourceName: "search_icon").withRenderingMode(.alwaysOriginal)
@@ -99,12 +133,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     // MARK: UICollectionView method
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos[indexPath.item]
+        cell.video = videos?[indexPath.item]
         return cell
     }
     
@@ -119,7 +153,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 //            let estimateRect = title.estimateCGrect(withConstrainedWidth: estimateWidth, font: UIFont.systemFont(ofSize: 14))
 //            otherControlsHeight += CGFloat(estimateRect.height > 20 ? 24 : 0)
 //        }
-//
+
         let videoHeight = (width - 16 - 16) * 9 / 16
         let size = CGSize(width: width, height: (videoHeight + otherControlsHeight))
         return size

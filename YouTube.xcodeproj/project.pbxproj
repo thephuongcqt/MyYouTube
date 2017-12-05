@@ -10,6 +10,7 @@
 		BF02DA601FD5C82500827A31 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02DA5F1FD5C82500827A31 /* MenuBar.swift */; };
 		BF02DA621FD5D15400827A31 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02DA611FD5D15400827A31 /* MenuCell.swift */; };
 		BF02DA641FD5D1EE00827A31 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02DA631FD5D1EE00827A31 /* BaseCell.swift */; };
+		BF24A2641FD6879100770439 /* BaseJsonObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24A2631FD6879100770439 /* BaseJsonObject.swift */; };
 		BF5C11E01FD5709200C13455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11DF1FD5709200C13455 /* AppDelegate.swift */; };
 		BF5C11E21FD5709200C13455 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11E11FD5709200C13455 /* HomeController.swift */; };
 		BF5C11E71FD5709200C13455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF5C11E61FD5709200C13455 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		BF02DA5F1FD5C82500827A31 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		BF02DA611FD5D15400827A31 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		BF02DA631FD5D1EE00827A31 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		BF24A2631FD6879100770439 /* BaseJsonObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseJsonObject.swift; sourceTree = "<group>"; };
 		BF5C11DC1FD5709200C13455 /* YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5C11DF1FD5709200C13455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF5C11E11FD5709200C13455 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				BFD663101FD64C1E009945C9 /* Video.swift */,
 				BFD663121FD64EA2009945C9 /* Channel.swift */,
+				BF24A2631FD6879100770439 /* BaseJsonObject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				BF5C12001FD5828700C13455 /* VideoCell.swift in Sources */,
 				BF5C11F71FD5805800C13455 /* Extensions+UIView.swift in Sources */,
 				BF02DA621FD5D15400827A31 /* MenuCell.swift in Sources */,
+				BF24A2641FD6879100770439 /* BaseJsonObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +330,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PQT9G6B78G;
 				INFOPLIST_FILE = YouTube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.phuongnt.YouTube;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -341,6 +346,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PQT9G6B78G;
 				INFOPLIST_FILE = YouTube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.phuongnt.YouTube;
 				PRODUCT_NAME = "$(TARGET_NAME)";

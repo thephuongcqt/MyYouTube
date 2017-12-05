@@ -13,13 +13,17 @@ class VideoCell: BaseCell {
     var video: Video?{
         didSet{
             
-            if let thumbnailImageName = video?.thumbnailImageName{
-                thumbnailImageView.image = UIImage(named: thumbnailImageName)
+            if let imageUrl = video?.thumbnail_image_name{
+                thumbnailImageView.loadImageUsingCacheWithUrlString(urlString: imageUrl, completion: {
+                    // load thumbnail image done
+                })
             }
-            if let profileImageName = video?.channel?.profileImageName{
-                userProfileImageView.image = UIImage(named: profileImageName)
+            if let profileImageUrl = video?.channel?.profile_image_name{
+                userProfileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl, completion: {
+                    // load user profile image done
+                })
             }
-            if let channelName = video?.channel?.name, let views = video?.numberOfViews{
+            if let channelName = video?.channel?.name, let views = video?.number_of_views{
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
                 let viewsDisplay = numberFormatter.string(from: views) ?? "0 views"
@@ -32,8 +36,6 @@ class VideoCell: BaseCell {
                 let estimateRect = title.estimateCGrect(withConstrainedWidth: width, font: UIFont.systemFont(ofSize: 14))
                 titleLabelHeightConstraint?.constant = estimateRect.height > 20 ? 44 : 20
             }
-            
-            
         }
     }
     
@@ -57,6 +59,7 @@ class VideoCell: BaseCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = #imageLiteral(resourceName: "taylor_swift_profile")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
         return imageView

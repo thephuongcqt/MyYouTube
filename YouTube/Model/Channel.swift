@@ -8,7 +8,8 @@
 
 import UIKit
 
+@objcMembers
 class Channel: NSObject {
-    var name: String?
-    var profileImageName: String?
+    @objc var name: String?
+    @objc var profile_image_name: String?
 }
