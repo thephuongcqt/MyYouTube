@@ -126,9 +126,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print(123)
     }
     
+    let settingsLauncher = SettingsLauncher()
+    
     @objc func handleMore(){
-        print(123)
+        settingsLauncher.showSettings()
     }
+    
     
     // MARK: UICollectionView method
     
