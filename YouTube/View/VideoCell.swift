@@ -9,6 +9,34 @@
 import UIKit
 
 class VideoCell: BaseCell {
+    
+    var video: Video?{
+        didSet{
+            
+            if let thumbnailImageName = video?.thumbnailImageName{
+                thumbnailImageView.image = UIImage(named: thumbnailImageName)
+            }
+            if let profileImageName = video?.channel?.profileImageName{
+                userProfileImageView.image = UIImage(named: profileImageName)
+            }
+            if let channelName = video?.channel?.name, let views = video?.numberOfViews{
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                let viewsDisplay = numberFormatter.string(from: views) ?? "0 views"
+                subTitleTextView.text = channelName + " • " + viewsDisplay + " views • 2 years ago"
+            }
+            
+            if let title = video!.title{
+                titleLabel.text = title
+                let width = frame.width - 16 - 44 - 8 - 16
+                let estimateRect = title.estimateCGrect(withConstrainedWidth: width, font: UIFont.systemFont(ofSize: 14))
+                titleLabelHeightConstraint?.constant = estimateRect.height > 20 ? 44 : 20
+            }
+            
+            
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,6 +66,8 @@ class VideoCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Taylor Swift - Blank space"
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     
@@ -49,6 +79,8 @@ class VideoCell: BaseCell {
         tv.textColor = .lightGray
         return tv
     }()
+    
+    var titleLabelHeightConstraint: NSLayoutConstraint?
     
     override func setupViews(){
         backgroundColor = .white
@@ -72,18 +104,19 @@ class VideoCell: BaseCell {
         separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         userProfileImageView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor).isActive = true
-        userProfileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16).isActive = true
+        userProfileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40).isActive = true
         userProfileImageView.widthAnchor.constraint(equalToConstant: 44).isActive = true
         userProfileImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         titleLabel.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 8).isActive = true
         titleLabel.topAnchor.constraint(equalTo: userProfileImageView.topAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        titleLabelHeightConstraint = titleLabel.heightAnchor.constraint(equalToConstant: 44)
+        titleLabelHeightConstraint?.isActive = true
         
         subTitleTextView.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 8).isActive = true
-        subTitleTextView.bottomAnchor.constraint(equalTo: userProfileImageView.bottomAnchor).isActive = true
+        subTitleTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         subTitleTextView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
-        subTitleTextView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        subTitleTextView.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }

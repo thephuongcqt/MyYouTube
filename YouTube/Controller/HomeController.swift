@@ -24,6 +24,31 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
+    let videos: [Video] = {
+        var kanyeChannel = Channel()
+        kanyeChannel.name = "KanyeIsTheBestChannel"
+        kanyeChannel.profileImageName = "kanye_profile"
+        var blankSpaceVideo = Video()
+        blankSpaceVideo.title = "Taylor Swift - Blank Space"
+        blankSpaceVideo.thumbnailImageName = "taylor_swift_blank_space"
+        blankSpaceVideo.channel = kanyeChannel
+        blankSpaceVideo.numberOfViews = 239843093
+        
+        var badBloodVideo = Video()
+        badBloodVideo.title = "Taylor Swift - Bad Blood featuring Kendrick"
+        badBloodVideo.thumbnailImageName = "taylor_swift_bad_blood"
+        badBloodVideo.channel = kanyeChannel
+        badBloodVideo.numberOfViews = 597843543
+        
+        var newVideo = Video()
+        newVideo.title = "Taylor Swift - Bad Blood featuring Kendrick dick head"
+        newVideo.thumbnailImageName = "taylor_swift_bad_blood"
+        newVideo.channel = kanyeChannel
+        newVideo.numberOfViews = 597843543
+        
+        return [blankSpaceVideo, newVideo, badBloodVideo, newVideo]
+    }()
+    
     //MARK: UIViewController life cycle
     
     override func viewDidLoad() {
@@ -41,9 +66,16 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         setupMenuBar()
+        setupNavBarButtons()
     }
     
-    
+    private func setupNavBarButtons(){
+        let searchImage = #imageLiteral(resourceName: "search_icon").withRenderingMode(.alwaysOriginal)
+        let searchBarButtonItem = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
+        let moreImage = #imageLiteral(resourceName: "nav_more_icon").withRenderingMode(.alwaysOriginal)
+        let moreButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleMore))
+        navigationItem.rightBarButtonItems =  [moreButton, searchBarButtonItem]
+    }
     
     private func setupMenuBar(){
         view.addSubview(menuBar)
@@ -52,29 +84,44 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        
+    }
+    
+    //MARK: handle bar button select
+    
+    @objc func handleSearch(){
+        print(123)
+    }
+    
+    @objc func handleMore(){
+        print(123)
     }
     
     // MARK: UICollectionView method
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        
+        cell.video = videos[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = view.safeWidth
-        let videoHeight = (width - 16 - 16) * 9 / 16
-        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16)
-        let size = CGSize(width: width, height: videoHeight + otherControlsHeight)
+        //estimate height base on title label height
+        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16 + 24)
         
+//        if let title = videos[indexPath.item].title{
+//            let estimateWidth = width - 16 - 44 - 8 - 16
+//            let estimateRect = title.estimateCGrect(withConstrainedWidth: estimateWidth, font: UIFont.systemFont(ofSize: 14))
+//            otherControlsHeight += CGFloat(estimateRect.height > 20 ? 24 : 0)
+//        }
+//
+        let videoHeight = (width - 16 - 16) * 9 / 16
+        let size = CGSize(width: width, height: (videoHeight + otherControlsHeight))
         return size
     }
 }

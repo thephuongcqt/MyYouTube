@@ -19,6 +19,8 @@
 		BF5C11F91FD5813500C13455 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11F81FD5813500C13455 /* Extensions+String.swift */; };
 		BF5C11FB1FD5816600C13455 /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11FA1FD5816600C13455 /* Extensions+UIImageView.swift */; };
 		BF5C12001FD5828700C13455 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C11FF1FD5828700C13455 /* VideoCell.swift */; };
+		BFD663111FD64C1E009945C9 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD663101FD64C1E009945C9 /* Video.swift */; };
+		BFD663131FD64EA2009945C9 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD663121FD64EA2009945C9 /* Channel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		BF5C11F81FD5813500C13455 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
 		BF5C11FA1FD5816600C13455 /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
 		BF5C11FF1FD5828700C13455 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		BFD663101FD64C1E009945C9 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		BFD663121FD64EA2009945C9 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,8 @@
 		BF5C11FE1FD581CC00C13455 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BFD663101FD64C1E009945C9 /* Video.swift */,
+				BFD663121FD64EA2009945C9 /* Channel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,8 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF5C11E21FD5709200C13455 /* HomeController.swift in Sources */,
+				BFD663111FD64C1E009945C9 /* Video.swift in Sources */,
 				BF5C11E01FD5709200C13455 /* AppDelegate.swift in Sources */,
 				BF5C11FB1FD5816600C13455 /* Extensions+UIImageView.swift in Sources */,
+				BFD663131FD64EA2009945C9 /* Channel.swift in Sources */,
 				BF5C11F91FD5813500C13455 /* Extensions+String.swift in Sources */,
 				BF5C11F41FD5801900C13455 /* Extensions+UIViewController.swift in Sources */,
 				BF02DA601FD5C82500827A31 /* MenuBar.swift in Sources */,
