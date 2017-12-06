@@ -80,6 +80,7 @@ class VideoCell: BaseCell {
         tv.text = "TaylorWiftVEVO - 1,604,684,607 vies • 2 years ago"
         tv.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         tv.textColor = .lightGray
+        tv.isEditable = false
         return tv
     }()
     

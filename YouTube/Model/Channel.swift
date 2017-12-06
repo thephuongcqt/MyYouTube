@@ -9,7 +9,7 @@
 import UIKit
 
 @objcMembers
-class Channel: NSObject {
+class Channel: BaseJsonObject {
     @objc var name: String?
     @objc var profile_image_name: String?
 }

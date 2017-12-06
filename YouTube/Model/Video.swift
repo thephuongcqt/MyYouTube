@@ -8,8 +8,8 @@
 
 import UIKit
 @objcMembers
-class Video: NSObject {
-    // Using BaseJsonObject are the same with @objcMemeber and @objc
+class Video: BaseJsonObject {
+   
     @objc var thumbnail_image_name: String?
     @objc var title: String?
     @objc var channel: Channel?
@@ -21,7 +21,7 @@ class Video: NSObject {
         super.init()
     }
     
-    init(withDictionary dictionary: [String: Any]){
+    init(with dictionary: [String: Any]){
         super.init()
         setValuesForKeys(dictionary)
     }

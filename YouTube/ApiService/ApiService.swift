@@ -18,22 +18,22 @@ class ApiService: NSObject {
     func fetchVideos(completion: @escaping ([Video]) -> ()){
         
         let urlString = "\(baseUrl)/home.json"
-        fetchFeedFor(urlString: urlString, completion: completion)
+        fetchFeed(for: urlString, completion: completion)
     }
     
     func fetchTrendingFeed(completion: @escaping ([Video]) -> ()){
         
         let urlString = "\(baseUrl)/trending.json"
-        fetchFeedFor(urlString: urlString, completion: completion)
+        fetchFeed(for: urlString, completion: completion)
     }
     
     func fetchSubscriptionFeed(completion: @escaping ([Video]) -> ()){
         
         let urlString = "\(baseUrl)/subscriptions.json"
-        fetchFeedFor(urlString: urlString, completion: completion)
+        fetchFeed(for: urlString, completion: completion)
     }
     
-    func fetchFeedFor(urlString: String, completion: @escaping ([Video]) -> ()){
+    func fetchFeed(for urlString: String, completion: @escaping ([Video]) -> ()){
         if let url = URL(string: urlString){
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil{
@@ -44,7 +44,7 @@ class ApiService: NSObject {
                     var videos = [Video]()
                     let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
                     for dictionary in json as! [[String: Any]]{
-                        let video = Video(withDictionary: dictionary)
+                        let video = Video(with: dictionary)
                         videos.append(video)
                     }
                     DispatchQueue.main.async {
