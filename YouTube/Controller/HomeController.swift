@@ -10,6 +10,8 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
         label.textColor = .white
@@ -30,18 +32,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.rgb(230, 32, 31)
         return view
-    }()
-    
-    var videos: [Video]?
+    }()    
     
     //MARK: UIViewController life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchVideos()
-        
-        
         
         setupCollectionView()
         setupMenuBar()
@@ -51,6 +47,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         menuBar.collectionView.reloadData()
     }
+    
+    //MARK: Setup CollectionView
     
     func setupCollectionView(){
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -65,22 +63,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.titleView = titleLabel
     
         collectionView?.backgroundColor = .white
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         
         collectionView?.isPagingEnabled = true
     }
-    
-    //MARK: fetch videos
-    
-    func fetchVideos(){
-        ApiService.shared.fetchVideos { (videos) in
-            self.videos = videos
-            self.collectionView?.reloadData()
-        }
-    }
-    
     //MARK: Set up Navigation Bar
     
     private func setupNavBarButtons(){
@@ -117,6 +105,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func scrollTo(menuIndex: Int){
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView?.scrollToItem(at: indexPath, at: .left, animated: true)
+        setTitle(forIndex: menuIndex)
     }
     
     let settingsLauncher = SettingsLauncher()
@@ -137,7 +126,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
     
-    // MARK: UICollectionView method
+    // MARK: UICollectionViewController method
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -145,53 +134,34 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        cell.backgroundColor = indexPath.item % 2 == 0 ? .yellow : .purple
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        let height = view.frame.height
+        let height = view.frame.height - 50
+        // 50 is a height of menu bar
         return CGSize(width: width, height: height)
     }
-    
+    //MARK: Scroll handle
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let index = scrollView.contentOffset.x / view.frame.width
         menuBar.horizontalBarLeftAnchor?.constant = view.safeWidth / 4 * index
     }
     
+    
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x / view.frame.width)
         let indexPath = IndexPath(item: index, section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
-        print(index)
+        setTitle(forIndex: index)
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return videos?.count ?? 0
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-//        cell.video = videos?[indexPath.item]
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let width = view.safeWidth
-//        //estimate height base on title label height
-//        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16 + 24)
-//
-////        if let title = videos[indexPath.item].title{
-////            let estimateWidth = width - 16 - 44 - 8 - 16
-////            let estimateRect = title.estimateCGrect(withConstrainedWidth: estimateWidth, font: UIFont.systemFont(ofSize: 14))
-////            otherControlsHeight += CGFloat(estimateRect.height > 20 ? 24 : 0)
-////        }
-//
-//        let videoHeight = (width - 16 - 16) * 9 / 16
-//        let size = CGSize(width: width, height: (videoHeight + otherControlsHeight))
-//        return size
-//    }
+    private func setTitle(forIndex index: Int){
+        if let titleLabel = navigationItem.titleView as? UILabel{
+            titleLabel.text = " \(titles[index])"
+        }
+    }
+    
 }
 
