@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let rootViewController = HomeController(collectionViewLayout: layout)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         UINavigationBar.appearance().barTintColor = UIColor(r: 230, g: 32, b: 31)

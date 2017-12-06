@@ -18,9 +18,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return label
     }()
     
-    let menuBar: MenuBar = {
+    lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.translatesAutoresizingMaskIntoConstraints = false
+        mb.homeController = self
         return mb
     }()
     
@@ -40,23 +41,35 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         fetchVideos()
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.titleView = titleLabel
         
-        collectionView?.backgroundColor = .white
         
-        if #available(iOS 11, *){
-            collectionView?.contentInsetAdjustmentBehavior = .always
-        }
-        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        setupCollectionView()
         setupMenuBar()
         setupNavBarButtons()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         menuBar.collectionView.reloadData()
+    }
+    
+    func setupCollectionView(){
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumLineSpacing = 0
+        }
+        
+        if #available(iOS 11, *){
+            collectionView?.contentInsetAdjustmentBehavior = .never
+        }
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.titleView = titleLabel
+    
+        collectionView?.backgroundColor = .white
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        
+        collectionView?.isPagingEnabled = true
     }
     
     //MARK: fetch videos
@@ -99,7 +112,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     //MARK: handle bar button select
     
     @objc func handleSearch(){
-        print(123)
+    }
+    
+    func scrollTo(menuIndex: Int){
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView?.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
     let settingsLauncher = SettingsLauncher()
@@ -120,34 +137,61 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
     
-    
     // MARK: UICollectionView method
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos?.count ?? 0
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos?[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        cell.backgroundColor = indexPath.item % 2 == 0 ? .yellow : .purple
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = view.safeWidth
-        //estimate height base on title label height
-        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16 + 24)
-        
-//        if let title = videos[indexPath.item].title{
-//            let estimateWidth = width - 16 - 44 - 8 - 16
-//            let estimateRect = title.estimateCGrect(withConstrainedWidth: estimateWidth, font: UIFont.systemFont(ofSize: 14))
-//            otherControlsHeight += CGFloat(estimateRect.height > 20 ? 24 : 0)
-//        }
-
-        let videoHeight = (width - 16 - 16) * 9 / 16
-        let size = CGSize(width: width, height: (videoHeight + otherControlsHeight))
-        return size
+        let width = view.frame.width
+        let height = view.frame.height
+        return CGSize(width: width, height: height)
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let index = scrollView.contentOffset.x / view.frame.width
+        menuBar.horizontalBarLeftAnchor?.constant = view.safeWidth / 4 * index
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = Int(targetContentOffset.pointee.x / view.frame.width)
+        let indexPath = IndexPath(item: index, section: 0)
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        print(index)
+    }
+    
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return videos?.count ?? 0
+//    }
+//
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
+//        cell.video = videos?[indexPath.item]
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let width = view.safeWidth
+//        //estimate height base on title label height
+//        let otherControlsHeight = CGFloat(16 + 16 + 44 + 16 + 24)
+//
+////        if let title = videos[indexPath.item].title{
+////            let estimateWidth = width - 16 - 44 - 8 - 16
+////            let estimateRect = title.estimateCGrect(withConstrainedWidth: estimateWidth, font: UIFont.systemFont(ofSize: 14))
+////            otherControlsHeight += CGFloat(estimateRect.height > 20 ? 24 : 0)
+////        }
+//
+//        let videoHeight = (width - 16 - 16) * 9 / 16
+//        let size = CGSize(width: width, height: (videoHeight + otherControlsHeight))
+//        return size
+//    }
 }
 
