@@ -10,6 +10,9 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    let subscriptionCellId = "SubscriptionCellId"
+    let videoCellId = "VideoCellId"
+    let trendingCellId = "TrendingCellId"
     let titles = ["Home", "Trending", "Subscriptions", "Account"]
     
     lazy var titleLabel: UILabel = {
@@ -63,7 +66,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.titleView = titleLabel
     
         collectionView?.backgroundColor = .white
-        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: videoCellId)
+        collectionView?.register(TrendingCell.self, forCellWithReuseIdentifier: trendingCellId)
+        collectionView?.register(SubscriptionCell.self, forCellWithReuseIdentifier: subscriptionCellId)
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         
@@ -133,8 +138,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        return cell
+        var identifier: String
+        if indexPath.item == 1{
+            identifier = trendingCellId
+        } else if indexPath.item == 2{
+            identifier = subscriptionCellId
+        } else {
+            identifier = videoCellId
+        }
+        return collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
