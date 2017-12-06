@@ -10,26 +10,94 @@ import UIKit
 import AVFoundation
 
 class VideoPlayerView: UIView {
+    
+    let controlsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        return view
+    }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+       let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        aiv.translatesAutoresizingMaskIntoConstraints = false
+        aiv.startAnimating()
+        return aiv
+    }()
+    
+    lazy var pausePlayButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = #imageLiteral(resourceName: "pause")
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        controlsContainerView.frame = frame
+        addSubview(controlsContainerView)
+        controlsContainerView.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.centerXAnchor.constraint(equalTo: controlsContainerView.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: controlsContainerView.centerYAnchor).isActive = true
+        
+        controlsContainerView.addSubview(pausePlayButton)
+        
+        pausePlayButton.centerXAnchor.constraint(equalTo: controlsContainerView.centerXAnchor).isActive = true
+        pausePlayButton.centerYAnchor.constraint(equalTo: controlsContainerView.centerYAnchor).isActive = true
+        pausePlayButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        pausePlayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         backgroundColor = .black
         
-        let urlString = "https://firebasestorage.googleapis.com/v0/b/chatmessenger-b5a6e.appspot.com/o/message_movies%2F78820753-21AF-4661-83F6-5EEFE2C888D1.mov?alt=media&token=5813889d-e7c8-446e-aa28-25330c539cb9"
+        setupPlayerView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var player: AVPlayer?
+    
+    func setupPlayerView(){
+//        let urlString = "https://firebasestorage.googleapis.com/v0/b/chatmessenger-b5a6e.appspot.com/o/message_movies%2F78820753-21AF-4661-83F6-5EEFE2C888D1.mov?alt=media&token=5813889d-e7c8-446e-aa28-25330c539cb9"
+        let urlString = "http://www.sample-videos.com/video/mp4/240/big_buck_bunny_240p_30mb.mp4"
         if let url = URL(string: urlString){
-            let player = AVPlayer(url: url)
+            player = AVPlayer(url: url)
             
             let playerLayer = AVPlayerLayer(player: player)
             self.layer.addSublayer(playerLayer)
             playerLayer.frame = self.frame
             
-            player.play()
+            player?.play()
+            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         }
-        
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    var isPlaying = false
+    
+    @objc func handlePause(){
+        if isPlaying {
+            player?.pause()
+            pausePlayButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        } else{
+            player?.play()
+            pausePlayButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        }
+        isPlaying = !isPlaying
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "currentItem.loadedTimeRanges"{
+            pausePlayButton.isHidden = false
+            activityIndicatorView.stopAnimating()
+            controlsContainerView.backgroundColor = .clear
+            isPlaying = true
+        }
     }
 }
 
@@ -58,7 +126,6 @@ class VideoLauncher: NSObject {
 //                UIApplication.setStattusBarBackground(color: .black)
 //                controller.prefersStatusBarHidden =
                 UIApplication.shared.setStatusBarHidden(true, with: .fade)
-                
             })
         }
     }
