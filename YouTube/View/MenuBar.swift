@@ -21,6 +21,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return cv
     }()
     
+    let horizontalBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let images = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "trending"), #imageLiteral(resourceName: "subscriptions"), #imageLiteral(resourceName: "account")]
     
     override init(frame: CGRect) {
@@ -39,10 +46,31 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
+        setupHorizontalBar()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    var horizontalBarLeftAnchor: NSLayoutConstraint?
+    
+    func setupHorizontalBar(){
+        addSubview(horizontalBarView)
+        
+        horizontalBarLeftAnchor = horizontalBarView.leftAnchor.constraint(equalTo: self.safeLeftAnchor)
+        horizontalBarLeftAnchor?.isActive = true
+        horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1 / 4).isActive = true
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 4).isActive = true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        horizontalBarLeftAnchor?.constant = self.safeWidth / 4 * CGFloat(indexPath.item)
+        
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

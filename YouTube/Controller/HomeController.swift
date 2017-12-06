@@ -24,6 +24,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
+    let redView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.rgb(230, 32, 31)
+        return view
+    }()
+    
     var videos: [Video]?
     
     //MARK: UIViewController life cycle
@@ -48,33 +55,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupNavBarButtons()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        menuBar.collectionView.reloadData()
+    }
+    
     //MARK: fetch videos
     
     func fetchVideos(){
-        let urlString = "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json"
-        
-        if let url = URL(string: urlString){
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if error != nil{
-                    print(error!)
-                    return
-                }
-                do{
-                    self.videos = [Video]()
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                    for dictionary in json as! [[String: Any]]{
-                        let video = Video(withDictionary: dictionary)
-                        self.videos?.append(video)
-                    }
-                    DispatchQueue.main.async {
-                        self.collectionView?.reloadData()
-                    }
-                } catch let err{
-                    print(err)
-                }
-            }.resume()
+        ApiService.shared.fetchVideos { (videos) in
+            self.videos = videos
+            self.collectionView?.reloadData()
         }
-        
     }
     
     //MARK: Set up Navigation Bar
@@ -88,10 +79,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     private func setupMenuBar(){
+        navigationController?.hidesBarsOnSwipe = true
+        
+        view.addSubview(redView)
         view.addSubview(menuBar)
         //x, y, w, h
+        redView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        redView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        redView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        redView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        menuBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//        menuBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }

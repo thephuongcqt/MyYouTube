@@ -18,13 +18,13 @@ class SettingCell: BaseCell {
         }
     }
     
-    override var isSelected: Bool{
-        didSet{
-            backgroundColor = isSelected ? .darkGray : .white
-            nameLabel.textColor = isSelected ? .white : .black
-            iconImageView.tintColor = isSelected ? .white : .darkGray
-        }
-    }
+//    override var isSelected: Bool{
+//        didSet{
+//            backgroundColor = isSelected ? .darkGray : .white
+//            nameLabel.textColor = isSelected ? .white : .black
+//            iconImageView.tintColor = isSelected ? .white : .darkGray
+//        }
+//    }
     
     var setting: Setting?{
         didSet{
