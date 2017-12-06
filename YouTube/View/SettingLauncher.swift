@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
+    var homeController: HomeController?
+    
     let settings: [Setting] = {
         let settingsSetting = Setting(name: .Settings, imageName: "settings")
         
@@ -57,13 +59,15 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             let y = window.frame.height - settingHeight
             collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: settingHeight)
             
+            
+            
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
                 self.collectionView.frame = CGRect(x: 0, y: y, width: window.frame.width, height: self.settingHeight)
             }, completion: nil)
         }
     }
-    @objc func handleDismiss() {
+    @objc func handleDismiss(setting: Setting) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             self.blackView.alpha = 0
@@ -71,7 +75,11 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
                 self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: self.settingHeight)
             }
             
-        }, completion: nil)
+        }) { (success) in
+            if setting.name.rawValue != "" && setting.name != .Cancel{
+                self.homeController?.showController(forSetting: setting)
+            }
+        }
     }
     
     // MARK: UICollectionView method
@@ -92,5 +100,10 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let setting = self.settings[indexPath.item]
+        handleDismiss(setting: setting)
     }
 }

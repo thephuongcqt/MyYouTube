@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = HomeController(collectionViewLayout: layout)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         UINavigationBar.appearance().barTintColor = UIColor(r: 230, g: 32, b: 31)
-        // remove separator line
+        // remove separator line between navigation bar & status bar
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         

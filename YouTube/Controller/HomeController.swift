@@ -24,30 +24,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
-//    let videos: [Video] = {
-//        var kanyeChannel = Channel()
-//        kanyeChannel.name = "KanyeIsTheBestChannel"
-//        kanyeChannel.profileImageName = "kanye_profile"
-//        var blankSpaceVideo = Video()
-//        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-//        blankSpaceVideo.thumbnailImageName = "taylor_swift_blank_space"
-//        blankSpaceVideo.channel = kanyeChannel
-//        blankSpaceVideo.numberOfViews = 239843093
-//
-//        var badBloodVideo = Video()
-//        badBloodVideo.title = "Taylor Swift - Bad Blood featuring Kendrick"
-//        badBloodVideo.thumbnailImageName = "taylor_swift_bad_blood"
-//        badBloodVideo.channel = kanyeChannel
-//        badBloodVideo.numberOfViews = 597843543
-//
-//        var newVideo = Video()
-//        newVideo.title = "Taylor Swift - Bad Blood featuring Kendrick dick head"
-//        newVideo.thumbnailImageName = "taylor_swift_bad_blood"
-//        newVideo.channel = kanyeChannel
-//        newVideo.numberOfViews = 597843543
-//
-//        return [blankSpaceVideo, newVideo, badBloodVideo, newVideo]
-//    }()
     var videos: [Video]?
     
     //MARK: UIViewController life cycle
@@ -129,7 +105,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let settingsLauncher = SettingsLauncher()
     
     @objc func handleMore(){
+        settingsLauncher.homeController = self
         settingsLauncher.showSettings()
+    }
+    
+    func showController(forSetting setting: Setting){
+        let dummySettingsViewController = UIViewController()
+        
+        dummySettingsViewController.view.backgroundColor = .white
+        dummySettingsViewController.navigationItem.title = setting.name.rawValue
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+        navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
     
     
