@@ -11,6 +11,7 @@ import UIKit
 class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     var videos: [Video]?
+    var homeController: HomeController?
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -75,6 +76,6 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let videoLauncher = VideoLauncher()
-        videoLauncher.showVideoPlayer()
+        videoLauncher.showVideoPlayer(with: homeController!)
     }
 }

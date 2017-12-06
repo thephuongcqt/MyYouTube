@@ -14,7 +14,7 @@ extension UIImageView{
     // When using UIImageView inside tablevview or collectionview
     // if image load at wrong position you must custom UIImageView and check url on download image
     // var imageURLString: String?
-    func loadImageUsingCacheWithUrlString(urlString: String){
+    func loadImageUsingCache(with urlString: String){
         // imageURLString = urlString
         self.image = nil
         //check image is cached or not
@@ -47,7 +47,7 @@ extension UIImageView{
          - urlString: The string url to download image
          - completion: Callback method to handle when image load done
 */
-    func loadImageUsingCacheWithUrlString(urlString: String, completion: @escaping () -> ()){
+    func loadImageUsingCache(with urlString: String, completion: @escaping () -> ()){
         self.image = nil
         //check image is cached or not
         if let cachedImage = imageCache.object(forKey: urlString as NSString){

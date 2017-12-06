@@ -9,6 +9,9 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
     
     let subscriptionCellId = "SubscriptionCellId"
     let videoCellId = "VideoCellId"
@@ -146,7 +149,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         } else {
             identifier = videoCellId
         }
-        return collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! FeedCell
+        cell.homeController = self
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

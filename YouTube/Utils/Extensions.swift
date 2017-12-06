@@ -12,6 +12,9 @@ extension UIApplication {
     var statusBarView: UIView? {
         return value(forKey: "statusBar") as? UIView
     }
+    static func setStattusBarBackground(color: UIColor){
+        UIApplication.shared.statusBarView?.backgroundColor = color
+    }
 }
 
 extension UIViewController{
@@ -24,6 +27,20 @@ extension UIViewController{
         view.endEditing(true)
     }
     
+//    var isHidden:Bool = false{
+//        didSet{
+//            UIView.animate(withDuration: 0.5) { () -> Void in
+//                self.setNeedsStatusBarAppearanceUpdate()
+//            }
+//        }
+//    }
+    
+//    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
+//        return .slide
+//    }
+//    override var prefersStatusBarHidden: Bool{
+//        return false
+//    }
 }
 
 extension UITableViewCell {

@@ -14,12 +14,12 @@ class VideoCell: BaseCell {
         didSet{
             
             if let imageUrl = video?.thumbnail_image_name{
-                thumbnailImageView.loadImageUsingCacheWithUrlString(urlString: imageUrl, completion: {
+                thumbnailImageView.loadImageUsingCache(with: imageUrl, completion: {
                     // load thumbnail image done
                 })
             }
             if let profileImageUrl = video?.channel?.profile_image_name{
-                userProfileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl, completion: {
+                userProfileImageView.loadImageUsingCache(with: profileImageUrl, completion: {
                     // load user profile image done
                 })
             }
